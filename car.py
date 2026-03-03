@@ -12,6 +12,7 @@ class Car:
         self.angle = 0
         self.speed = 0
 
+        # Car physics constants
         self.max_speed = 5
         self.acceleration = 0.2
         self.rotation_speed = 4
@@ -32,3 +33,16 @@ class Car:
         # direction: 1 for left, -1 for right
         if abs(self.speed) > 0.1:
             self.angle += direction * self.rotation_speed
+    
+    def update_physics(self):
+        self.apply_friction()
+
+        radians = math.radians(self.angle)
+        self.pos.x += math.cos(radians) * self.speed
+        self.pos.y -= math.sin(radians) * self.speed
+
+        self.image = pygame.transform.rotate(self.original_image, self.angle)
+        self.rect = self.image.get_rect(center=self.pos)
+    
+    def render(self, surface):
+        surface.blit(self.image, self.rect.topleft)
