@@ -18,3 +18,12 @@ class Car:
     
     def accelerate(self):
         self.speed = min(self.speed + self.acceleration, self.max_speed)
+
+    def brake(self):
+        self.speed = max(self.speed - self.acceleration * 2, -self.max_speed / 2)
+    
+    def apply_friction(self):
+        if self.speed > 0:
+            self.speed = max(self.speed - self.acceleration / 2, 0)
+        elif self.speed < 0:
+            self.speed = min(self.speed + self.acceleration / 2, 0)
