@@ -22,3 +22,6 @@ class Track:
 
         overlap = self.mask.overlap(car_mask, offset)
         return overlap is not None
+    
+    def render(self, surface):
+        surface.blit(self.image, self.rect.topleft)
