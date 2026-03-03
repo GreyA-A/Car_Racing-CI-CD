@@ -15,3 +15,6 @@ class Car:
         self.max_speed = 5
         self.acceleration = 0.2
         self.rotation_speed = 4
+    
+    def accelerate(self):
+        self.speed = min(self.speed + self.acceleration, self.max_speed)
