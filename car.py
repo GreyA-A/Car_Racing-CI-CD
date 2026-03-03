@@ -27,3 +27,8 @@ class Car:
             self.speed = max(self.speed - self.acceleration / 2, 0)
         elif self.speed < 0:
             self.speed = min(self.speed + self.acceleration / 2, 0)
+    
+    def turn(self, direction):
+        # direction: 1 for left, -1 for right
+        if abs(self.speed) > 0.1:
+            self.angle += direction * self.rotation_speed
