@@ -34,5 +34,22 @@ class Track:
         overlap = self.mask.overlap(car_mask, offset)
         return overlap is not None
     
+    def update_checkpoints(self, car):
+        target_rect = self.checkpoints[self.current_checkpoint]
+
+        if car.rect.colliderect(target_rect):
+            self.current_checkpoint += 1
+
+            if self.current_checkpoint >= len(self.checkpoints):
+                self.current_checkpoint = 0
+                self.last_finish_time = pygame.time.get_ticks() - self.start_time
+                self.start_time = pygame.time.get_ticks()
+
+                return True
+        return False
+
+    def get_finish_time(self):
+        return self.last_finish_time / 1000.0 if self.last_finish_time > 0 else None
+    
     def render(self, surface):
         surface.blit(self.image, self.rect.topleft)
