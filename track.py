@@ -15,3 +15,10 @@ class Track:
             for y in range(height):
                 if self.image.get_at((x, y))[:3] == grass_color:
                     self.mask.set_at((x, y), 1)
+    
+    def check_collision(self, car):
+        car_mask = pygame.mask.from_surface(car.image)
+        offset = (int(car.rect.x - self.rect.x), int(car.rect.y - self.rect.y))
+
+        overlap = self.mask.overlap(car_mask, offset)
+        return overlap is not None
