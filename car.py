@@ -22,6 +22,9 @@ class Car:
 
     def brake(self):
         self.speed = max(self.speed - self.acceleration * 2, -self.max_speed / 2)
+
+    def off_road_penalty(self):
+        self.speed *= 0.8
     
     def apply_friction(self):
         if self.speed > 0:
