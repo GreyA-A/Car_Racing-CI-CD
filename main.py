@@ -30,3 +30,33 @@ class InputHandler:
             "right": keys[pygame.K_RIGHT] or keys[pygame.K_d]
         }
         return actions
+
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.config = Config()
+        
+        self.screen_width = 800
+        self.screen_height = 600
+        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        pygame.display.set_caption("Car Racing - CI/CD Project")
+        
+        self.clock = pygame.time.Clock()
+        self.is_running = True
+        
+        self.track = Track(self.screen_width, self.screen_height)
+        self.car = Car((self.screen_width // 2, self.screen_height - 150))
+        self.input = InputHandler()
+        
+        if self.config.difficulty == "hard":
+            self.car.max_speed = 7
+        elif self.config.difficulty == "easy":
+            self.car.max_speed = 4
+            
+        self.font = pygame.font.SysFont(None, 36)
+        self.laps = 0
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.is_running = False
