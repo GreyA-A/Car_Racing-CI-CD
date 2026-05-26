@@ -19,3 +19,14 @@ class Config:
         args = parser.parse_args()
         self.difficulty = args.difficulty
         self.car_color = args.color
+
+class InputHandler:
+    def get_input(self):
+        keys = pygame.key.get_pressed()
+        actions = {
+            "accelerate": keys[pygame.K_UP] or keys[pygame.K_w],
+            "brake": keys[pygame.K_DOWN] or keys[pygame.K_s],
+            "left": keys[pygame.K_LEFT] or keys[pygame.K_a],
+            "right": keys[pygame.K_RIGHT] or keys[pygame.K_d]
+        }
+        return actions
