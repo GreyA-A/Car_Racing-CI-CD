@@ -1,5 +1,6 @@
 import pygame
 
+
 class Track:
     def __init__(self, width, height):
         self.image = pygame.Surface((width, height))
@@ -11,7 +12,7 @@ class Track:
         self.rect = self.image.get_rect()
 
         self.mask = pygame.mask.from_threshold(self.image, grass_color, (1, 1, 1, 255))
-        
+
         self.checkpoints = [
             pygame.Rect(width - 200, height // 2, 100, 10),
             pygame.Rect(width // 2, 100, 10, 100),
@@ -21,14 +22,14 @@ class Track:
         self.current_checkpoint = 0
         self.start_time = pygame.time.get_ticks()
         self.last_finish_time = 0
-    
+
     def check_collision(self, car):
         car_mask = pygame.mask.from_surface(car.image)
         offset = (int(car.rect.x - self.rect.x), int(car.rect.y - self.rect.y))
 
         overlap = self.mask.overlap(car_mask, offset)
         return overlap is not None
-    
+
     def update_checkpoints(self, car):
         target_rect = self.checkpoints[self.current_checkpoint]
 
@@ -45,6 +46,6 @@ class Track:
 
     def get_finish_time(self):
         return self.last_finish_time / 1000.0 if self.last_finish_time > 0 else None
-    
+
     def render(self, surface):
         surface.blit(self.image, self.rect.topleft)
