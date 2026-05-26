@@ -60,3 +60,23 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.is_running = False
+    
+    def update(self):
+        actions = self.input.get_input()
+
+        if actions["accelerate"]:
+            self.car.accelerate()
+        if actions["brake"]:
+            self.car.brake()
+        if actions["left"]:
+            self.car.turn(1)
+        elif actions["right"]:
+            self.car.turn(-1)
+
+        self.car.update_physics()
+
+        if self.track.check_collision(self.car):
+            self.car.speed *= 0.8
+
+        if self.track.update_checkpoints(self.car):
+            self.laps += 1
