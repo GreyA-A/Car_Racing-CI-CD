@@ -13,10 +13,10 @@ class Track:
         self.mask = pygame.mask.from_threshold(self.image, grass_color, (1, 1, 1, 255))
         
         self.checkpoints = [
-            pygame.Rect(width // 2, 100, 10, 100),
             pygame.Rect(width - 200, height // 2, 100, 10),
-            pygame.Rect(width // 2, height - 200, 10, 100),
-            pygame.Rect(100, height // 2, 100, 10)
+            pygame.Rect(width // 2, 100, 10, 100),
+            pygame.Rect(100, height // 2, 100, 10),
+            pygame.Rect(width // 2, height - 200, 10, 100)
         ]
         self.current_checkpoint = 0
         self.start_time = pygame.time.get_ticks()
