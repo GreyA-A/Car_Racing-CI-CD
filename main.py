@@ -96,3 +96,17 @@ class Game:
         self.screen.blit(diff_text, (10, 70))
 
         pygame.display.flip()
+    
+    def run(self):
+        while self.is_running:
+            self.handle_events()
+            self.update()
+            self.render()
+            self.clock.tick(60)
+            
+        pygame.quit()
+        sys.exit()
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()
