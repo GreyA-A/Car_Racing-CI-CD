@@ -80,3 +80,19 @@ class Game:
 
         if self.track.update_checkpoints(self.car):
             self.laps += 1
+    
+    def render(self):
+        self.screen.fill((0, 0, 0))
+        
+        self.track.render(self.screen)
+        self.car.render(self.screen)
+
+        time_text = self.font.render(f"Last lap: {self.track.get_finish_time()} s", True, (255, 255, 255))
+        laps_text = self.font.render(f"Laps: {self.laps}", True, (255, 255, 255))
+        diff_text = self.font.render(f"Difficulty: {self.config.difficulty}", True, (255, 255, 255))
+
+        self.screen.blit(time_text, (10, 10))
+        self.screen.blit(laps_text, (10, 40))
+        self.screen.blit(diff_text, (10, 70))
+
+        pygame.display.flip()
