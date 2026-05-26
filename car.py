@@ -1,6 +1,7 @@
 import pygame
 import math
 
+
 class Car:
     def __init__(self, start_pos, color_name="red"):
         self.original_image = pygame.Surface((40, 20), pygame.SRCALPHA)
@@ -24,7 +25,7 @@ class Car:
         self.max_speed = 5
         self.acceleration = 0.2
         self.rotation_speed = 4
-    
+
     def accelerate(self):
         self.speed = min(self.speed + self.acceleration, self.max_speed)
 
@@ -33,18 +34,18 @@ class Car:
 
     def off_road_penalty(self):
         self.speed *= 0.8
-    
+
     def apply_friction(self):
         if self.speed > 0:
             self.speed = max(self.speed - self.acceleration / 2, 0)
         elif self.speed < 0:
             self.speed = min(self.speed + self.acceleration / 2, 0)
-    
+
     def turn(self, direction):
         # direction: 1 for left, -1 for right
         if abs(self.speed) > 0.1:
             self.angle += direction * self.rotation_speed
-    
+
     def update_physics(self):
         self.apply_friction()
 
@@ -54,6 +55,6 @@ class Car:
 
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect(center=self.pos)
-    
+
     def render(self, surface):
         surface.blit(self.image, self.rect.topleft)

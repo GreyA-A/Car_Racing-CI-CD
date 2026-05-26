@@ -4,6 +4,7 @@ import argparse
 from car import Car
 from track import Track
 
+
 class Config:
     def __init__(self):
         self.difficulty = "normal"
@@ -15,10 +16,11 @@ class Config:
         parser = argparse.ArgumentParser(description="Car Racing Game (CI/CD Pipeline)")
         parser.add_argument("--difficulty", choices=["easy", "normal", "hard"], default="normal", help="Difficulty level")
         parser.add_argument("--color", choices=["red", "blue", "green"], default="red", help="Car color")
-        
+
         args = parser.parse_args()
         self.difficulty = args.difficulty
         self.car_color = args.color
+
 
 class InputHandler:
     def get_input(self):
@@ -31,28 +33,29 @@ class InputHandler:
         }
         return actions
 
+
 class Game:
     def __init__(self):
         pygame.init()
         self.config = Config()
-        
+
         self.screen_width = 800
         self.screen_height = 600
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption("Car Racing - CI/CD Project")
-        
+
         self.clock = pygame.time.Clock()
         self.is_running = True
-        
+
         self.track = Track(self.screen_width, self.screen_height)
         self.car = Car((self.screen_width // 2, self.screen_height - 150), self.config.car_color)
         self.input = InputHandler()
-        
+
         if self.config.difficulty == "hard":
             self.car.max_speed = 7
         elif self.config.difficulty == "easy":
             self.car.max_speed = 4
-            
+
         self.font = pygame.font.SysFont(None, 36)
         self.laps = 0
 
@@ -60,7 +63,7 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.is_running = False
-    
+
     def update(self):
         actions = self.input.get_input()
 
@@ -80,10 +83,10 @@ class Game:
 
         if self.track.update_checkpoints(self.car):
             self.laps += 1
-    
+
     def render(self):
         self.screen.fill((0, 0, 0))
-        
+
         self.track.render(self.screen)
         self.car.render(self.screen)
 
@@ -96,16 +99,17 @@ class Game:
         self.screen.blit(diff_text, (10, 70))
 
         pygame.display.flip()
-    
+
     def run(self):
         while self.is_running:
             self.handle_events()
             self.update()
             self.render()
             self.clock.tick(60)
-            
+
         pygame.quit()
         sys.exit()
+
 
 if __name__ == "__main__":
     game = Game()
