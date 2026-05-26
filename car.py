@@ -2,9 +2,17 @@ import pygame
 import math
 
 class Car:
-    def __init__(self, start_pos):
+    def __init__(self, start_pos, color_name="red"):
         self.original_image = pygame.Surface((40, 20), pygame.SRCALPHA)
-        self.original_image.fill((255, 0, 0))  # Red car
+
+        colors = {
+            "red": (255, 0, 0),
+            "blue": (0, 0, 255),
+            "green": (0, 200, 0)
+        }
+        rgb_color = colors.get(color_name, (255, 0, 0))
+
+        self.original_image.fill(rgb_color)
         self.image = self.original_image
         self.rect = self.image.get_rect(center=start_pos)
 

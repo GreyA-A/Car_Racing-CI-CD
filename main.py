@@ -45,7 +45,7 @@ class Game:
         self.is_running = True
         
         self.track = Track(self.screen_width, self.screen_height)
-        self.car = Car((self.screen_width // 2, self.screen_height - 150))
+        self.car = Car((self.screen_width // 2, self.screen_height - 150), self.config.car_color)
         self.input = InputHandler()
         
         if self.config.difficulty == "hard":
